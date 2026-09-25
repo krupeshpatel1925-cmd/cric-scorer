@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="pitchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+    <linearGradient id="ballGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#991b1b" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#pitchGrad)" />
+  <!-- Stumps -->
+  <rect x="226" y="140" width="16" height="180" rx="8" fill="#fef3c7" />
+  <rect x="248" y="140" width="16" height="180" rx="8" fill="#fef3c7" />
+  <rect x="270" y="140" width="16" height="180" rx="8" fill="#fef3c7" />
+  <!-- Bails -->
+  <rect x="220" y="132" width="72" height="12" rx="6" fill="#f59e0b" />
+  <!-- Cricket Ball -->
+  <circle cx="340" cy="310" r="54" fill="url(#ballGrad)" filter="drop-shadow(0 8px 16px rgba(0,0,0,0.4))" />
+  <!-- Seam -->
+  <path d="M 310 275 Q 340 310 370 345" stroke="#ffffff" stroke-width="4" stroke-dasharray="4,4" fill="none" />
+  <!-- Crossed Bat -->
+  <path d="M 150 360 L 290 220 L 310 240 L 170 380 Z" fill="url(#goldGrad)" opacity="0.9" />
+</svg>

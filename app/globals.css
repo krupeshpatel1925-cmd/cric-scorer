@@ -1,0 +1,588 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================================
+   THEME DESIGN SYSTEM TOKENS
+   ======================================================== */
+
+:root,
+[data-theme="midnight"] {
+  --bg-main: #090d16;
+  --bg-card: rgba(18, 24, 38, 0.85);
+  --bg-surface: #121826;
+  --bg-surface-elevated: #1a2235;
+  --border-color: #1e293b;
+  --border-card: rgba(255, 255, 255, 0.08);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --accent-primary: #10b981;
+  --accent-hover: #059669;
+  --accent-glow: 0 0 16px -2px rgba(16, 185, 129, 0.4);
+}
+
+[data-theme="daylight"] {
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f1f5f9;
+  --border-color: #e2e8f0;
+  --border-card: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #94a3b8;
+  --accent-primary: #059669;
+  --accent-hover: #047857;
+  --accent-glow: 0 0 16px -2px rgba(5, 150, 105, 0.25);
+}
+
+[data-theme="royal-blue"] {
+  --bg-main: #060b18;
+  --bg-card: rgba(13, 23, 49, 0.88);
+  --bg-surface: #0e1a38;
+  --bg-surface-elevated: #162650;
+  --border-color: #1d2f62;
+  --border-card: rgba(59, 130, 246, 0.15);
+  --text-main: #f0f7ff;
+  --text-muted: #93c5fd;
+  --text-dim: #60a5fa;
+  --accent-primary: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-glow: 0 0 18px -2px rgba(59, 130, 246, 0.45);
+}
+
+[data-theme="gold-champions"] {
+  --bg-main: #0c0c0f;
+  --bg-card: rgba(24, 22, 17, 0.88);
+  --bg-surface: #191814;
+  --bg-surface-elevated: #26241e;
+  --border-color: #38321e;
+  --border-card: rgba(245, 158, 11, 0.15);
+  --text-main: #fefce8;
+  --text-muted: #fde68a;
+  --text-dim: #d97706;
+  --accent-primary: #f59e0b;
+  --accent-hover: #d97706;
+  --accent-glow: 0 0 18px -2px rgba(245, 158, 11, 0.45);
+}
+
+[data-theme="crimson-arena"] {
+  --bg-main: #0d0607;
+  --bg-card: rgba(26, 12, 14, 0.88);
+  --bg-surface: #1f0f11;
+  --bg-surface-elevated: #2d1619;
+  --border-color: #451b20;
+  --border-card: rgba(239, 68, 68, 0.15);
+  --text-main: #fff1f2;
+  --text-muted: #fca5a5;
+  --text-dim: #ef4444;
+  --accent-primary: #ef4444;
+  --accent-hover: #dc2626;
+  --accent-glow: 0 0 18px -2px rgba(239, 68, 68, 0.45);
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+}
+
+/* Custom Sports Glassmorphism & Scoreboard Styling */
+.cricket-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-card);
+  border-radius: 1rem;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cricket-card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cricket-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+  box-shadow: var(--accent-glow);
+}
+
+/* Big High-Contrast Score Digit Display */
+.score-digits {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.05em;
+}
+
+/* Pulse animation for LIVE badge */
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.15);
+  }
+}
+
+.live-blinker {
+  animation: livePulse 1.8s infinite ease-in-out;
+}
+
+/* Touch-friendly scoring button feel */
+.scoring-btn {
+  user-select: none;
+  touch-action: manipulation;
+  transition: transform 0.08s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.scoring-btn:active {
+  transform: scale(0.94);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
+
+/* ========================================================
+   DAYLIGHT (CLEAN LIGHT STADIUM MODE) ADAPTATIONS
+   ======================================================== */
+[data-theme="daylight"],
+html.light {
+  color-scheme: light;
+}
+
+[data-theme="daylight"] body,
+html.light body {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+[data-theme="daylight"] .cricket-card,
+html.light .cricket-card {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03) !important;
+}
+
+[data-theme="daylight"] header,
+html.light header {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+.cricket-score-pill {
+  background-color: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+[data-theme="daylight"] .cricket-score-pill,
+html.light .cricket-score-pill {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-theme="daylight"] .cricket-logo-inner,
+html.light .cricket-logo-inner {
+  background-color: #ffffff !important;
+}
+
+[data-theme="daylight"] .cricket-score-pill .text-white,
+html.light .cricket-score-pill .text-white,
+[data-theme="daylight"] .cricket-score-pill .score-digits,
+html.light .cricket-score-pill .score-digits {
+  color: #0f172a !important;
+}
+
+[data-theme="daylight"] .cricket-score-pill .text-slate-400,
+html.light .cricket-score-pill .text-slate-400,
+[data-theme="daylight"] .cricket-score-pill .text-slate-300,
+html.light .cricket-score-pill .text-slate-300 {
+  color: #475569 !important;
+}
+
+[data-theme="royal-blue"] .cricket-score-pill {
+  background-color: rgba(14, 26, 56, 0.75);
+  border-color: #1d2f62;
+}
+
+[data-theme="gold-champions"] .cricket-score-pill {
+  background-color: rgba(25, 24, 20, 0.75);
+  border-color: #38321e;
+}
+
+[data-theme="crimson-arena"] .cricket-score-pill {
+  background-color: rgba(31, 15, 17, 0.75);
+  border-color: #451b20;
+}
+
+[data-theme="daylight"] [class*="bg-slate-950"],
+html.light [class*="bg-slate-950"] {
+  background-color: #ffffff !important;
+}
+
+[data-theme="daylight"] [class*="bg-slate-900"],
+html.light [class*="bg-slate-900"] {
+  background-color: #f8fafc !important;
+}
+
+[data-theme="daylight"] [class*="bg-slate-800"],
+html.light [class*="bg-slate-800"] {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="daylight"] .bg-slate-800:hover,
+html.light .bg-slate-800:hover {
+  background-color: #e2e8f0 !important;
+}
+
+[data-theme="daylight"] [class*="border-slate-800"],
+[data-theme="daylight"] [class*="border-slate-700"],
+html.light [class*="border-slate-800"],
+html.light [class*="border-slate-700"] {
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="daylight"] .text-white,
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+/* Retain pure white text on dark hero banners, buttons, and badges */
+.dashboard-hero-banner h1,
+.dashboard-hero-banner .text-white,
+[data-theme="daylight"] .dashboard-hero-banner h1,
+[data-theme="daylight"] .dashboard-hero-banner .text-white,
+html.light .dashboard-hero-banner h1,
+html.light .dashboard-hero-banner .text-white {
+  color: #ffffff !important;
+}
+
+.dashboard-hero-banner p,
+.dashboard-hero-banner .text-slate-400,
+.dashboard-hero-banner .text-slate-300,
+[data-theme="daylight"] .dashboard-hero-banner p,
+[data-theme="daylight"] .dashboard-hero-banner .text-slate-400,
+[data-theme="daylight"] .dashboard-hero-banner .text-slate-300,
+html.light .dashboard-hero-banner p,
+html.light .dashboard-hero-banner .text-slate-400,
+html.light .dashboard-hero-banner .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+
+/* Solid CTA buttons (New Match, Start Match, Score Live) keep white text */
+.shadow-neon,
+a.shadow-neon,
+button.shadow-neon,
+.btn-solid-primary,
+[data-theme="daylight"] .shadow-neon,
+[data-theme="daylight"] a.shadow-neon,
+[data-theme="daylight"] button.shadow-neon,
+[data-theme="daylight"] .btn-solid-primary,
+html.light .shadow-neon,
+html.light a.shadow-neon,
+html.light button.shadow-neon,
+html.light .btn-solid-primary {
+  color: #ffffff !important;
+}
+
+/* Active Navigation Links: Bold Dark Emerald in Daylight, Mint in Dark */
+.cricket-nav-link-active,
+[data-theme="daylight"] .cricket-nav-link-active,
+html.light .cricket-nav-link-active {
+  color: #047857 !important;
+  font-weight: 700 !important;
+}
+
+/* Active selection buttons (Toss winner, squads, formats) */
+.cricket-selection-active,
+[data-theme="daylight"] .cricket-selection-active,
+html.light .cricket-selection-active {
+  background-color: #ecfdf5 !important;
+  border-color: #10b981 !important;
+  color: #065f46 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="midnight"] .cricket-selection-active,
+[data-theme="royal-blue"] .cricket-selection-active,
+[data-theme="gold-champions"] .cricket-selection-active,
+[data-theme="crimson-arena"] .cricket-selection-active {
+  background-color: rgba(16, 185, 129, 0.22) !important;
+  border-color: #10b981 !important;
+  color: #34d399 !important;
+  font-weight: 800 !important;
+}
+
+/* Active amber selection buttons (Bat First, Bowl First) */
+.cricket-selection-amber-active,
+[data-theme="daylight"] .cricket-selection-amber-active,
+html.light .cricket-selection-amber-active {
+  background-color: #fffbeb !important;
+  border-color: #f59e0b !important;
+  color: #92400e !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="midnight"] .cricket-selection-amber-active,
+[data-theme="royal-blue"] .cricket-selection-amber-active,
+[data-theme="gold-champions"] .cricket-selection-amber-active,
+[data-theme="crimson-arena"] .cricket-selection-amber-active {
+  background-color: rgba(245, 158, 11, 0.22) !important;
+  border-color: #f59e0b !important;
+  color: #fde68a !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="midnight"] .cricket-nav-link-active,
+[data-theme="royal-blue"] .cricket-nav-link-active,
+[data-theme="gold-champions"] .cricket-nav-link-active,
+[data-theme="crimson-arena"] .cricket-nav-link-active {
+  color: #34d399 !important;
+  font-weight: 700 !important;
+}
+
+/* Inactive nav links in daylight mode */
+[data-theme="daylight"] nav a:not(.cricket-nav-link-active),
+html.light nav a:not(.cricket-nav-link-active) {
+  color: #475569 !important;
+}
+
+[data-theme="daylight"] nav a:not(.cricket-nav-link-active):hover,
+html.light nav a:not(.cricket-nav-link-active):hover {
+  color: #0f172a !important;
+  background-color: #f1f5f9 !important;
+}
+
+[data-theme="daylight"] .text-slate-400,
+html.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+[data-theme="daylight"] .text-slate-300,
+[data-theme="daylight"] .text-slate-200,
+html.light .text-slate-300,
+html.light .text-slate-200 {
+  color: #1e293b !important;
+}
+
+[data-theme="daylight"] .text-slate-500,
+html.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+[data-theme="daylight"] .text-emerald-400,
+html.light .text-emerald-400 {
+  color: #047857 !important;
+}
+
+[data-theme="daylight"] .text-amber-400,
+html.light .text-amber-400 {
+  color: #b45309 !important;
+}
+
+[data-theme="daylight"] select,
+[data-theme="daylight"] input,
+html.light select,
+html.light input {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="daylight"] .scoring-btn.bg-slate-900 {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="daylight"] .scoring-btn.bg-slate-800 {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ========================================================
+   ROYAL BLUE THEME ADAPTATIONS
+   ======================================================== */
+[data-theme="royal-blue"] header {
+  background-color: rgba(6, 11, 24, 0.92) !important;
+  border-color: #1d2f62 !important;
+}
+
+[data-theme="royal-blue"] .bg-slate-950,
+[data-theme="royal-blue"] .bg-slate-950\/95 {
+  background-color: #060b18 !important;
+}
+
+[data-theme="royal-blue"] .bg-slate-900,
+[data-theme="royal-blue"] .bg-slate-900\/80 {
+  background-color: #0e1a38 !important;
+}
+
+[data-theme="royal-blue"] .border-slate-800,
+[data-theme="royal-blue"] .border-slate-800\/80 {
+  border-color: #1d2f62 !important;
+}
+
+[data-theme="royal-blue"] .bg-emerald-500,
+[data-theme="royal-blue"] .bg-emerald-600 {
+  background-color: #2563eb !important;
+}
+
+[data-theme="royal-blue"] .bg-emerald-500:hover,
+[data-theme="royal-blue"] .bg-emerald-600:hover {
+  background-color: #1d4ed8 !important;
+}
+
+[data-theme="royal-blue"] .text-emerald-400,
+[data-theme="royal-blue"] .text-emerald-300 {
+  color: #60a5fa !important;
+}
+
+[data-theme="royal-blue"] .border-emerald-500,
+[data-theme="royal-blue"] .border-emerald-500\/50,
+[data-theme="royal-blue"] .border-emerald-500\/30 {
+  border-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+[data-theme="royal-blue"] .bg-emerald-500\/10,
+[data-theme="royal-blue"] .bg-emerald-500\/20 {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+[data-theme="royal-blue"] .shadow-neon {
+  box-shadow: 0 0 18px -2px rgba(59, 130, 246, 0.5) !important;
+}
+
+/* ========================================================
+   GOLD CHAMPIONS THEME ADAPTATIONS
+   ======================================================== */
+[data-theme="gold-champions"] header {
+  background-color: rgba(12, 12, 15, 0.92) !important;
+  border-color: #38321e !important;
+}
+
+[data-theme="gold-champions"] .bg-slate-950,
+[data-theme="gold-champions"] .bg-slate-950\/95 {
+  background-color: #0c0c0f !important;
+}
+
+[data-theme="gold-champions"] .bg-slate-900,
+[data-theme="gold-champions"] .bg-slate-900\/80 {
+  background-color: #191814 !important;
+}
+
+[data-theme="gold-champions"] .border-slate-800,
+[data-theme="gold-champions"] .border-slate-800\/80 {
+  border-color: #38321e !important;
+}
+
+[data-theme="gold-champions"] .bg-emerald-500,
+[data-theme="gold-champions"] .bg-emerald-600 {
+  background-color: #d97706 !important;
+}
+
+[data-theme="gold-champions"] .bg-emerald-500:hover,
+[data-theme="gold-champions"] .bg-emerald-600:hover {
+  background-color: #b45309 !important;
+}
+
+[data-theme="gold-champions"] .text-emerald-400,
+[data-theme="gold-champions"] .text-emerald-300 {
+  color: #fbbf24 !important;
+}
+
+[data-theme="gold-champions"] .border-emerald-500,
+[data-theme="gold-champions"] .border-emerald-500\/50,
+[data-theme="gold-champions"] .border-emerald-500\/30 {
+  border-color: rgba(245, 158, 11, 0.5) !important;
+}
+
+[data-theme="gold-champions"] .bg-emerald-500\/10,
+[data-theme="gold-champions"] .bg-emerald-500\/20 {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+}
+
+[data-theme="gold-champions"] .shadow-neon {
+  box-shadow: 0 0 18px -2px rgba(245, 158, 11, 0.5) !important;
+}
+
+/* ========================================================
+   CRIMSON ARENA THEME ADAPTATIONS
+   ======================================================== */
+[data-theme="crimson-arena"] header {
+  background-color: rgba(13, 6, 7, 0.92) !important;
+  border-color: #451b20 !important;
+}
+
+[data-theme="crimson-arena"] .bg-slate-950,
+[data-theme="crimson-arena"] .bg-slate-950\/95 {
+  background-color: #0d0607 !important;
+}
+
+[data-theme="crimson-arena"] .bg-slate-900,
+[data-theme="crimson-arena"] .bg-slate-900\/80 {
+  background-color: #1f0f11 !important;
+}
+
+[data-theme="crimson-arena"] .border-slate-800,
+[data-theme="crimson-arena"] .border-slate-800\/80 {
+  border-color: #451b20 !important;
+}
+
+[data-theme="crimson-arena"] .bg-emerald-500,
+[data-theme="crimson-arena"] .bg-emerald-600 {
+  background-color: #dc2626 !important;
+}
+
+[data-theme="crimson-arena"] .bg-emerald-500:hover,
+[data-theme="crimson-arena"] .bg-emerald-600:hover {
+  background-color: #b91c1c !important;
+}
+
+[data-theme="crimson-arena"] .text-emerald-400,
+[data-theme="crimson-arena"] .text-emerald-300 {
+  color: #f87171 !important;
+}
+
+[data-theme="crimson-arena"] .border-emerald-500,
+[data-theme="crimson-arena"] .border-emerald-500\/50,
+[data-theme="crimson-arena"] .border-emerald-500\/30 {
+  border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+[data-theme="crimson-arena"] .bg-emerald-500\/10,
+[data-theme="crimson-arena"] .bg-emerald-500\/20 {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+}
+
+[data-theme="crimson-arena"] .shadow-neon {
+  box-shadow: 0 0 18px -2px rgba(239, 68, 68, 0.5) !important;
+}

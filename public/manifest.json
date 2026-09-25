@@ -1,0 +1,42 @@
+{
+  "name": "Cricket Scorer Pro",
+  "short_name": "CricScorer",
+  "description": "Live ball-by-ball cricket scoring, match management, and tournament stats",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#059669",
+  "orientation": "portrait-primary",
+  "categories": ["sports", "utilities"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start New Match",
+      "short_name": "New Match",
+      "description": "Create and score a new match",
+      "url": "/matches/create",
+      "icons": [{ "src": "/icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Live Matches",
+      "short_name": "Matches",
+      "description": "View live and completed matches",
+      "url": "/matches",
+      "icons": [{ "src": "/icon.svg", "sizes": "192x192" }]
+    }
+  ]
+}
