@@ -8,7 +8,6 @@ import {
   Trophy,
   CheckCircle2,
   Users,
-  Coin,
   Play,
   Flame,
   Shield,
